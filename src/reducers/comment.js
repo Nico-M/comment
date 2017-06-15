@@ -30,19 +30,21 @@ export default function (state,action){
 
 //action creator
 
-const initComment=(comments)=>{
+export const initComments=(comments)=>{
     return {
         type:INIT_COMMENT,
         comments
     }
 }
-const addComment=(comment)=>{
+
+export const addComment=(comment)=>{
     return {
         type:ADD_COMMENT,
         comment
     }
 }
-const deleteComment=(comment)=>{
+
+export const deleteComment=(comment)=>{
     return {
         type:DELETE_COMMENT,
         comment
