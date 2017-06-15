@@ -3,63 +3,63 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import CommentInput from '../components/CommentInput'
 import { addComment } from '../reducers/comment'
- 
+
 
 class CommentInputContainer extends Component {
     static propTypes = {
         comments: PropTypes.array,
         onSubmit: PropTypes.func
     }
-    constructor(){
+    constructor() {
         super()
-        this.state={
-            username:''
+        this.state = {
+            username: ''
         }
     }
-    componentWillMount(){
+    componentWillMount() {
         this._loadUsername()
     }
-    _loadUsername(){
-        const username=localStorage.getItem('username')
-        if(username) this.setState({username})
+    _loadUsername() {
+        const username = localStorage.getItem('username')
+        if (username) this.setState({ username })
 
     }
-    _saveUsername(username){
-        localStorage.setItem('username',username)
+    _saveUsername(username) {
+        localStorage.setItem('username', username)
     }
 
-    handleSubmitComment(comment){
-        if(!comment) return
-        if(!comment.username) return alert('please enter username')
-        if(!comment.contetn) return alert('please enter your content')
-        const {comments} =this.props
-        const newComments = [...comments,comment]
-        localStorage.setItem('comment',JSON.stringify(newComments))
-        if(this.props.onSubmit){
+    handleSubmitComment(comment) {
+        if (!comment) return
+        if (!comment.username) return alert('please enter username')
+        if (!comment.contetn) return alert('please enter your content')
+        const { comments } = this.props
+        const newComments = [...comments, comment]
+        localStorage.setItem('comment', JSON.stringify(newComments))
+        if (this.props.onSubmit) {
             this.props.onSubmit(comment)
         }
     }
-    render(){
+    render() {
         return (
-            <CommentInput 
-            username={this.state.username}
-            onUserNameInputBlur={this._saveUsername.bind(this)}
-            onSubmit={this.handleSubmitComment.bind(this)}
+            <CommentInput
+                username={this.state.username}
+                onUserNameInputBlur={this._saveUsername.bind(this)}
+                onSubmit={this.handleSubmitComment.bind(this)}
             />
         )
     }
 }
-const mapStateToProps=(state)=>{
+const mapStateToProps = (state) => {
     return {
-        comments:state.comments
-        }
-    
+        comments: state.comments
+    }
+
 }
-const mapDispatchToProps=(dispatch)=>{
+const mapDispatchToProps = (dispatch) => {
     return {
-        onSubmit:(comment)=>{
+        onSubmit: (comment) => {
             dispatch(addComment(comment))
         }
     }
 }
-export default connect(mapStateToProps,mapDispatchToProps)(CommentInputContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(CommentInputContainer)
