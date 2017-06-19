@@ -14,7 +14,7 @@ export default function (state,action){
     switch(action.type){
         case INIT_COMMENT:
             return {
-                comments:state.comments
+                comments:action.comments
             }
         case ADD_COMMENT:
             return {
@@ -22,9 +22,11 @@ export default function (state,action){
             }
         case DELETE_COMMENT:
             return {
-                comments:[...state.comments.slice(0,action.index),
-                ...state.comments.slice(action.index+1)]
-            }
+                comments:[...state.comments.slice(0,action.commentIndex),
+                ...state.comments.slice(action.commentIndex+1)]
+            };
+        default:
+            return state;
     }
 }
 
@@ -44,9 +46,9 @@ export const addComment=(comment)=>{
     }
 }
 
-export const deleteComment=(comment)=>{
+export const deleteComment=(commentIndex)=>{
     return {
         type:DELETE_COMMENT,
-        comment
+        commentIndex
     }
 }

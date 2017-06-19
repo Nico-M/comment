@@ -14,15 +14,16 @@ class Comment extends Component {
         }
     }
     componentWillMount() {
+        console.log('comment mount')
         this._updateTimeString()
-        this.timer = setInterval(this._updateTimeString.bind(this), 5000)
+        this.timer = setInterval(this._updateTimeString.bind(this), 10000)
     }
     componentWillUnmount() {
         clearInterval(this.timer)
     }
     _updateTimeString() {
         const comment = this.props.comment
-        const duration= (+new Date() - comment.createTime) / 1000
+        const duration= (+new Date() - comment.createdTime) / 1000
         this.setState({
             timerString: duration > 60
                 ? `${Math.round(duration / 60)}分钟前`
@@ -56,7 +57,7 @@ class Comment extends Component {
           __html: this._getProcessedContent(comment.content)
         }} />
         <span className='comment-createdtime'>
-          {this.state.timeString}
+          {this.state.timerString}
         </span>
         <span
           onClick={this.handleDeleteComment.bind(this)}

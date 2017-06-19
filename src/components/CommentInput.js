@@ -10,13 +10,19 @@ export default class CommentInput extends Component{
     static defaultProps={
         username:''
     }
-    constructor(){
-        super()
+    constructor(props){
+        //当构造器里面需要用到props时就要传入props
+        super(props)
         this.state={
-            username:this.props.username,
+            username:props.username,
             content:''
         }
     }
+    // componentWillMount(){
+    //     this.setState({
+    //         username:this.props.username
+    //     })
+    // }
     componentDidMount(){
         this.textarea.focus()
     }
@@ -25,6 +31,11 @@ export default class CommentInput extends Component{
             this.props.onUserNameInputBlur(event.target.value)
         }
     }
+    handleUsernameChange (event) {
+    this.setState({
+      username: event.target.value
+    })
+  }
     handleContentChange(e){
         this.setState({
             content:e.target.value

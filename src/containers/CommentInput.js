@@ -31,10 +31,10 @@ class CommentInputContainer extends Component {
     handleSubmitComment(comment) {
         if (!comment) return
         if (!comment.username) return alert('please enter username')
-        if (!comment.contetn) return alert('please enter your content')
+        if (!comment.content) return alert('please enter your content')
         const { comments } = this.props
         const newComments = [...comments, comment]
-        localStorage.setItem('comment', JSON.stringify(newComments))
+        localStorage.setItem('comments', JSON.stringify(newComments))
         if (this.props.onSubmit) {
             this.props.onSubmit(comment)
         }
